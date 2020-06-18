@@ -1,0 +1,36 @@
+<ion-menu side="start" menu-id="primerMenu" content-id="principal" >
+  <ion-header>
+    <ion-toolbar color="primary" style="height: 5em">
+      <ion-img  src="./assets/img/logo.png" style="height: 5em;width: 5em" class="ion-float-start" (click)="closeMenu(); routerNoticias()"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <ion-menu-toggle *ngFor="let c of componentesMenu | async" [routerLink]="c.redirectTo" detail>
+        <ion-item *ngIf="c != null">
+          <ion-icon [name]="c.icono" slot="start"></ion-icon>
+          <ion-label>{{c.nombre}}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <div *ngIf="authService.loggedIn()">
+          <div *ngIf="this.imagenUser !== '' && this.imagenUser !== undefined">
+              <ion-fab-button  (click)="closeMenu();routerPerfil()">
+                  <ion-avatar>
+                      <img [src]="this.imagenUser">
+                  </ion-avatar>
+              </ion-fab-button>
+          </div>
+          <div *ngIf="this.imagenUser === '' || this.imagenUser === undefined">
+              <ion-fab-button  (click)="closeMenu();routerPerfil()">
+                  <ion-icon name="person" color="light"></ion-icon>
+              </ion-fab-button>
+          </div>
+      </div>
+      <div *ngIf="!authService.loggedIn()">
+      <ion-fab-button  routerLink="login" (click)="closeMenu()">
+        <ion-icon name="person" color="light"></ion-icon>
+      </ion-fab-button>
+      </div>
+    </ion-fab>
+  </ion-content>
+</ion-menu>

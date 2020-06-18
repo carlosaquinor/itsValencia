@@ -1,0 +1,111 @@
+<app-header titulo="Crear Ruta"></app-header>
+<div #mapElement class="map"></div>
+  <ion-content>
+    <form [formGroup]="formularioRutas" (ngSubmit)="crearRuta()">
+    <ion-grid style="margin-top: 0.5em">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label  position="floating">Origen</ion-label>
+            <ion-input formControlName="origen" type="text"
+                       [class.is-invalid]="origenNoValido"
+                       (ionChange)="puedeCrearParadas"></ion-input>
+          </ion-item>
+          <p><ion-label *ngIf="this.origenNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce el origen de la ruta</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-item>
+            <ion-label  position="floating">Destino</ion-label>
+            <ion-input formControlName="destino" type="text"
+                       [class.is-invalid]="destinoNoValido"
+                        (ionChange)="puedeCrearParadas"></ion-input>
+          </ion-item>
+          <p><ion-label *ngIf="this.destinoNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce el destino de la ruta</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let x of paradas; let i = index" style="margin-top: -0.5em; margin-bottom: 0.7em">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label  position="stacked">Parada {{i+1}}</ion-label>
+            <ion-input type="text" class="ion-text-left" required><ion-icon color="danger" style="margin-right: 0.5em" name="trash-outline" (click)="alertEliminarParada(x)"></ion-icon>  {{x}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-button expand="full" [disabled]="!puedeCrearParadas" (click)="crearParada()">Agregar parada</ion-button>
+        </ion-col>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-button  expand="full" color="secondary" (click)="calculateAndDisplayRoute()">CALCULAR RUTA</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: 0.3em">
+          <ion-item>
+            <ion-label  position="floating">Imagen en relación a la ruta (URL)</ion-label>
+            <ion-input formControlName="imagen" type="text"
+                       [class.is-invalid]="imagenNoValido"
+                       ></ion-input>
+          </ion-item>
+          <p><ion-label *ngIf="this.tituloNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce una imagen</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="margin-top: -0.5em">
+          <ion-item >
+            <ion-label  position="floating">Nombra la ruta</ion-label>
+            <ion-input formControlName="titulo" type="text"
+                       [class.is-invalid]="tituloNoValido"
+            ></ion-input>
+          </ion-item>
+          <p><ion-label *ngIf="this.tituloNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce un titulo para ruta</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-item>
+            <ion-label  position="floating">Breve descripción de la ruta</ion-label>
+            <ion-textarea formControlName="descripcion" type="text"
+                       [class.is-invalid]="descripcionNoValido"
+                       ></ion-textarea>
+          </ion-item>
+          <p><ion-label *ngIf="this.descripcionNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce una breve descripción para la ruta</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-item>
+            <ion-label  position="floating">Teléfono de contacto</ion-label>
+            <ion-input formControlName="contacto" type="text"
+                       [class.is-invalid]="contactoNoValido"
+                       ></ion-input>
+          </ion-item>
+          <p><ion-label *ngIf="this.contactoNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce un telefono de contacto</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="margin-top: -0.5em">
+          <ion-item>
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-datetime formControlName="fecha" type="date"
+                          [min]="this.fechaActualRAW" max="2030-12-31"
+                          [class.is-invalid]="fechaNoValido"
+                           display-format="MMM DD YYYY, HH:mm" placeholder="Fecha de realización de la ruta"></ion-datetime>
+          </ion-item>
+          <p><ion-label *ngIf="this.fechaNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce la fecha de realización</ion-label></p>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: -0.5em">
+          <ion-col size="9">
+            <ion-button  expand="full" type="submit">CREAR RUTA</ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button expand="full" color="danger" (click)="cancelar()"><ion-icon name="close-outline"></ion-icon></ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </form>
+  </ion-content>
+

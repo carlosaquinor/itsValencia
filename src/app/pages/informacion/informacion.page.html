@@ -1,0 +1,39 @@
+<app-header titulo="Información"></app-header>
+
+<ion-content class=" background-1">
+    <div class="center">
+        <ion-slides>
+            <ion-slide class="step-one" style="text-align: center; color: #f2f2f2; margin-top: 3em">
+                <h2>it's Valencia</h2>
+                <p>Disfruta de la mejor experiencia que te puede ofrecer el turismo usando it's Valencia!</p>
+                <p> Descubre los mejores lugares, playas o hoteles a los que visitar por ti mismo
+                    o apuntate a una ruta turísitica y disfruta de la ciudad en compañía de otros usuarios</p>
+                <img src="./assets/img/imageninfo1.png" class="imagen">
+            </ion-slide>
+            <ion-slide class="step-one">
+                <img src="./assets/img/imageninfo2.png" class="imagen" style="margin-top: 3em;color: #f2f2f2">
+                <h2 style="padding-top: 0.5em">¡Danos ideas!</h2>
+                <p>¿Sabes de lagún lugar, playa o hotel que no se encuentre registrado en la aplicación y que te
+                gustaría ver?</p>
+                <p>¡Haz click en el botón y rellena el formulario para registrarlo ahora mismo!</p>
+                <ion-button (click)="registrarLugar()">REGISTRAR LUGAR</ion-button>
+            </ion-slide>
+            <ion-slide class="step-one" style="color: #f2f2f2; margin-top: 3em">
+            <h1>¡Promueve eventos!</h1>
+                <p>¿Planear realizar un evento o sabes de uno que no se encuentre registrado?
+                </p> <p>¡Asegurate de hacérnoslo saber!</p>
+                <ion-button (click)="registrarEvento()">REGISTRAR EVENTO</ion-button>
+                <img src="./assets/img/imageninfo4.png" style="padding-top: 2em" class="imagen">
+
+            </ion-slide>
+            <ion-slide class="step-one">
+                <img src="./assets/img/imageninfo3.png" class="imagen" style="margin-top:3em;color: #f2f2f2">
+                <h2 style="padding-top: 0.5em">Contactanos</h2>
+                <p>Recuerda que puedes ponerte en contacto con nosotros en cualquier momento y trataremos de atenderte
+                lo mas rápido posible</p>
+                <p><ion-icon name="mail-outline" style="margin-right: 0.5em"></ion-icon>itsvalencia@gmail.com</p>
+
+            </ion-slide>
+        </ion-slides>
+    </div>
+</ion-content>

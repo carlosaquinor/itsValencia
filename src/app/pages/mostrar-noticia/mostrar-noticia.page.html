@@ -1,0 +1,26 @@
+<app-header titulo="Mostar noticia"></app-header>
+<ion-content class="background">
+    <ion-card>
+            <ion-slides pager="true">
+                <ion-slide *ngFor="let y of noticia.imagen">
+                    <ion-img [src]="y" class="card-img-top"></ion-img>
+                </ion-slide>
+            </ion-slides>
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row>
+                        <ion-card-title><h1>{{noticia.titulo}}</h1></ion-card-title>
+                        <ion-card-subtitle style="margin-top: 0.5em"><h2><i>{{noticia.subtitulo}}</i></h2></ion-card-subtitle>
+                    </ion-row>
+                    <ion-row style="margin-top: 1em; margin-bottom: -3em">
+                        <ion-textarea disabled="true" readonly="false" style="text-align: justify">{{noticia.contenido}}</ion-textarea>
+                    </ion-row>
+                    <ion-row style="color: #f2f2f2">
+                        <ion-col size="12">
+                            <ion-icon color="light" name="globe-outline" style="margin-right: 0.5em"></ion-icon>{{noticia.autor}} • {{this.pipeDate(noticia.fecha)}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+    </ion-card>
+</ion-content>

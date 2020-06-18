@@ -1,0 +1,77 @@
+<app-header titulo="Registro de usuario"></app-header>
+<ion-content>
+    <form [formGroup]="formularioRegister" (ngSubmit)="doRegister()">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="ion-text-left">
+                <ion-row style="margin-top: 3em">
+                    <ion-col size="12" size-md>
+                        <ion-item>
+                            <ion-label position="floating">Nombre de usuario</ion-label>
+                            <ion-input formControlName="username" type="text"
+                                       [class.is-invalid]="usuarioNoValido"
+                                       autofocus></ion-input>
+                        </ion-item>
+                        <p><ion-label *ngIf="this.usuarioNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Ingresa un nombre de usuario</ion-label></p>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6" size-md>
+                        <ion-item>
+                            <ion-label position="floating">Nombre</ion-label>
+                            <ion-input type="text" formControlName="nombre" [class.is-invalid]="nombreNoValido"></ion-input>
+                        </ion-item>
+                        <p><ion-label *ngIf="this.nombreNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Ingresa tu nombre</ion-label></p>
+
+                    </ion-col>
+                    <ion-col size="6" size-md>
+                        <ion-item>
+                            <ion-label position="floating">Apellidos</ion-label>
+                            <ion-input type="text" formControlName="apellido" [class.is-invalid]="apellidoNoValido"></ion-input>
+                        </ion-item>
+                        <p><ion-label *ngIf="this.apellidoNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Ingresa tus apellidos</ion-label></p>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating">Email</ion-label>
+                            <ion-input type="email" formControlName="email" [class.is-invalid]="correoNoValido"></ion-input>
+                        </ion-item>
+                        <p><ion-label *ngIf="this.correoNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Ingresa tu email</ion-label></p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row style="margin-top: 2em">
+                    <ion-col>
+                        <ion-item>
+                            <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" (ionChange)="confirmarPassword()" formControlName="password" [class.is-invalid]="passNoValido"></ion-input>
+                            <ion-icon slot="end" [name]="passwordToggleIcon" (click)="this.togglePassword()"></ion-icon>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Confirmar contraseña" (ionChange)="confirmarPassword()" formControlName="validatePassword" [class.is-invalid]="usuarioNoValido"></ion-input>
+                            <ion-icon slot="end" [name]="passwordToggleIcon" (click)="this.togglePassword()"></ion-icon>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <div *ngIf="!this.passNoCoincide || !this.passNoCaracteresSuficientes">
+                        <p><ion-label  position="stacked" color="danger" *ngIf="!this.passNoCoincide && this.formularioRegister.get('password').value!==''"><ion-icon name="alert-outline"></ion-icon>Las contraseñas no coinciden</ion-label></p>
+                        <p><ion-label  position="stacked" color="danger" *ngIf="!this.passNoCaracteresSuficientes && this.formularioRegister.get('password').value!==''"><ion-icon name="alert-outline"></ion-icon>La contraseña ha de contener al menos 6 carácteres</ion-label></p>
+                    </div>
+                </ion-row>
+                <ion-row style="margin-top: 1em">
+                    <ion-col class="ion-text-center">
+                        <ion-button [disabled]="!puedeRegistrar" shape="round" type="submit">Registrarse</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    </form>
+</ion-content>

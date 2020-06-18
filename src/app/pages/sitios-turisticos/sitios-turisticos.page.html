@@ -1,0 +1,29 @@
+<app-header titulo="Sitios turisticos"></app-header>
+<ion-item class="background">
+    <h1 style="margin-top: 3em">Sitios turísticos</h1>
+</ion-item>
+<ion-item color="dark">
+    <ion-label>Ordenar</ion-label>
+    <ion-select interface="popover" [(ngModel)]="selectcategory" (ionChange)="codeSelected()">
+        <ion-select-option value="desc" >Valoración ↓</ion-select-option>
+        <ion-select-option value="asc" >Valoración ↑</ion-select-option>
+    </ion-select>
+</ion-item>
+<ion-content>
+    <ion-item *ngFor="let x of listaLugares" (click)="mostrarLugar(x._id)">
+        <ion-avatar slot="start">
+            <img [src]="x.imagen[0]">
+        </ion-avatar>
+        <ion-label>
+            <h2>{{x.nombre}}</h2>
+            <p><ion-icon name="location-outline" style="margin-right: 0.5em"></ion-icon>{{x.direccion}}</p>
+            <p *ngIf="x.valoracion !== null && x.valoracion !== undefined"><ion-icon name="star-outline" style="margin-right: 0.5em"></ion-icon><i>{{x.valoracion | number:'1.2-2'}}</i></p>
+            <p *ngIf="x.valoracion === null || x.valoracion === undefined || x.valoracion === 0"><ion-icon name="star-outline" style="margin-right: 0.5em"></ion-icon><i>Sin valoración</i></p>
+        </ion-label>
+    </ion-item>
+    <ion-infinite-scroll threshold="5%"  (ionInfinite)="loadDataArray($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="crescent">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

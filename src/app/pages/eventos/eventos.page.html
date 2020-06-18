@@ -1,0 +1,53 @@
+<app-header titulo="Eventos"></app-header>
+<ion-item class="background">
+    <h1 style="margin-top: 3em">Eventos</h1>
+</ion-item>
+<ion-item color="dark">
+    <ion-label>Ordenar</ion-label>
+    <ion-select interface="popover" [(ngModel)]="selectcategory" (ionChange)="codeSelected()">
+        <ion-select-option value="desc" >Inicio ↓</ion-select-option>
+        <ion-select-option value="asc" >Inicio ↑</ion-select-option>
+    </ion-select>
+</ion-item>
+<ion-content style="text-align: justify">
+
+    <ion-card *ngFor="let x of listaEventos">
+        <ion-img [src]="x.imagen" class="card-img-top"></ion-img>
+        <ion-fab horizontal="end">
+            <ion-fab-button style="margin-top: -2em" (click)="mostrarMapa(x.direccion, x.nombre)">
+                <ion-icon name="map-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+        <ion-card-header>
+            <h4>{{x.nombre}}</h4>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-grid>
+                <ion-row style="margin-bottom: 1em">
+                    <h3><ion-icon name="book-outline" color="light" style="margin-right: 0.5em"></ion-icon>{{x.descripcion}}</h3>
+                </ion-row>
+                <ion-row style="margin-bottom: 1em; margin-top: 1em">
+                    <h3>
+                        <ion-icon name="navigate-outline" color="danger" style="margin-right: 0.5em"></ion-icon>
+                        {{x.direccion}}</h3>
+                </ion-row>
+                <ion-row style="margin-top: 1em; margin-bottom: 1em">
+                    <h3><ion-icon color="tertiary" name="time-outline" style="margin-right: 0.5em"></ion-icon>Inicio del evento : {{this.pipeDate(x.inicio)}}</h3>
+                    <h3 *ngIf="x.final !== '' && x.final !== null"><ion-icon color="tertiary" name="time-outline" style="margin-right: 0.5em"></ion-icon>Fin del evento : {{this.pipeDate(x.final)}}</h3>
+                    <h3 *ngIf="x.final === '' || x.final === null"><ion-icon color="tertiary" name="time-outline" style="margin-right: 0.5em"></ion-icon>Fin del evento : <i>No hay fecha de fin</i></h3>
+                </ion-row>
+                <ion-row style="margin-top: 1em; margin-bottom: 1em">
+                    <h3><ion-icon color="warning" name="pricetag-outline" style="margin-right: 0.5em"></ion-icon>Coste : {{x.coste}}</h3>
+                </ion-row>
+                <ion-row style="margin-top: 1em">
+                    <h3><ion-icon name="people-outline" style="margin-right: 0.5em" color="primary"></ion-icon>Organizador : {{x.organizador}}</h3>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+    <ion-infinite-scroll threshold="5%"  (ionInfinite)="loadDataArray($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="crescent">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

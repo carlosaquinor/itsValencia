@@ -1,0 +1,67 @@
+<app-header titulo="Perfil de usuario"></app-header>
+
+<ion-content>
+    <img src="../../../assets/img/fondouser.jpg" style="height: 10em;width: 100%; position: absolute">
+    <ion-grid style="margin-top: 7em">
+        <ion-row>
+            <ion-col>
+                <ion-row>
+                    <ion-col size="12" size-md>
+                        <ion-avatar (click)="cambiarImg()">
+                            <img *ngIf="user.imagen === null || user.imagen === ''" src="./assets/img/noimageuser.png" class="foto-perfil">
+                            <img *ngIf="user.imagen !== null && user.imagen !== ''" (error)="handleImgError($event)" [src]="user.imagen"  class="foto-perfil">
+                        </ion-avatar>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 3em">
+                    <ion-col size="12">
+                        <ion-label class="ion-text-center" color="primary">
+                            <h1 style="text-align: center">{{user.username}}</h1>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 1em">
+                    <ion-col size="12" size-md>
+                        <ion-item color="dark">
+                            <ion-label>{{user.email}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 0.5em">
+                    <ion-col size="6" size-md>
+                        <ion-item color="dark">
+                            <ion-label>{{user.nombre}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="6" size-md>
+                        <ion-item color="dark">
+                            <ion-label>{{user.apellido}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 1em">
+        <ion-row>
+            <ion-col size="5">
+                <ion-button  expand="full" (click)="cambiarUser()" color="primary" style="height: 3.5em">Editar perfil</ion-button>
+            </ion-col>
+            <ion-col size="7">
+                <ion-button   expand="full" (click)="cambiarPass()" color="primary" style="height: 3.5em">Cambiar contraseña</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button expand="full" (click)="abrirRutasUser()" color="secondary" style="height: 3.5em"><ion-icon name="navigate-outline" style="margin-right: 0.5em"></ion-icon>TUS RUTAS<ion-icon name="navigate-outline" style="margin-left: 0.5em"></ion-icon> </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button expand="full" (click)="abrirEventosLugaresUser()" style="height: 3.5em" color="secondary"><ion-icon name="globe-outline" style="margin-right: 0.5em"></ion-icon>TUS SUGERENCIAS<ion-icon name="globe-outline" style="margin-left: 0.5em"></ion-icon> </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+

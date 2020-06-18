@@ -1,0 +1,28 @@
+<app-header titulo="Mostar rutas user"></app-header>
+
+<ion-content class="background-1">
+    <ion-item *ngIf="listaRutas.length > 0">
+      <h1>Tus rutas</h1>
+    </ion-item>
+    <ion-item *ngFor="let x of listaRutas">
+      <ion-avatar slot="start" (click)="abrirRuta(x._id)">
+        <img [src]="x.imagen">
+      </ion-avatar>
+      <ion-label (click)="abrirRuta(x._id)">
+        <h2>{{x.titulo | slice:0:15}}...</h2>
+        <p><ion-icon name="location-outline" style="margin-right: 0.5em"></ion-icon>{{x.destino}} - {{x.origen}}</p>
+        <p><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon><i>{{this.pipeDate(x.fecha)}}</i></p>
+      </ion-label>
+
+      <ion-label style="margin-left: 1em" *ngIf="this.idUser !== x.idusuario">
+        <ion-button color="danger" (click)="alertEliminarParticipacion(x._id)">
+          CANCELAR<ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-label>
+      <ion-label style="margin-left: 1em" *ngIf="this.idUser === x.idusuario">
+        <ion-button color="danger" (click)="alertEliminarRuta(x._id)">
+          ELIMINAR<ion-icon name="trash-outline" style="margin-left: 0.2em"></ion-icon>
+        </ion-button>
+      </ion-label>
+    </ion-item>
+</ion-content>

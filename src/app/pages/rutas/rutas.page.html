@@ -1,0 +1,33 @@
+<app-header titulo="Rutas"></app-header>
+<ion-item class="background">
+    <h1 style="margin-top: 3em">Rutas</h1>
+</ion-item>
+<ion-item color="dark">
+    <ion-label >Ordenar</ion-label>
+    <ion-select interface="popover" [(ngModel)]="selectcategory" (ionChange)="codeSelected()">
+        <ion-select-option value="desc" >Fecha ↓</ion-select-option>
+        <ion-select-option value="asc" >Fecha ↑</ion-select-option>
+    </ion-select>
+</ion-item>
+<ion-content>
+        <ion-item *ngFor="let x of listaRutas" (click)="abrirRuta(x._id)">
+            <ion-avatar slot="start">
+                <img [src]="x.imagen">
+            </ion-avatar>
+                <ion-label>
+                    <h2>{{x.titulo}}</h2>
+                    <p><ion-icon name="location-outline" style="margin-right: 0.5em"></ion-icon>{{x.destino}} - {{x.origen}}</p>
+                    <p><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon><i>{{this.pipeDate(x.fecha)}}</i></p>
+                </ion-label>
+        </ion-item>
+    <ion-infinite-scroll threshold="5%"  (ionInfinite)="loadDataArray($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="crescent">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button (click)="crearRuta()" color="primary">
+            <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+</ion-fab>

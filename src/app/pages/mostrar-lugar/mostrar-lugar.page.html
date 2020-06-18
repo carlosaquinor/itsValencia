@@ -1,0 +1,98 @@
+<app-header titulo="Mostrar Lugar"></app-header>
+
+<ion-content class="backgroundComent">
+    <ion-card>
+        <ion-slides pager="true">
+            <ion-slide *ngFor="let x of lugar.imagen">
+                <ion-img [src]="x" class="card-img-top"></ion-img>
+            </ion-slide>
+        </ion-slides>
+
+        <ion-fab horizontal="end">
+            <ion-fab-button style="margin-top: -2em" (click)="mostrarMapa()">
+                <ion-icon name="map-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+        <ion-card-content style="margin: 0.5em">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-row>
+                            <ion-card-title style="margin-top: 0.5em">{{this.lugar.nombre}}</ion-card-title>
+                        </ion-row>
+                        <ion-row>
+                            <ion-label style="margin-top: 1em">
+                                <ion-textarea style="margin-top: 1em;margin-bottom: -2em; text-align: justify" disabled="true" readonly="true"><ion-icon name="book-outline" style="margin-right: 0.5em"></ion-icon> {{this.lugar.descripcion}}</ion-textarea>
+                                <p><ion-icon name="location-outline" style="margin-right: 0.5em"></ion-icon> {{this.lugar.direccion}}</p>
+                                <p><ion-icon name="pricetag-outline" style="margin-right: 0.5em"></ion-icon> {{this.lugar.categoria}}</p>
+                            </ion-label>
+                        </ion-row>
+                        <ion-row style="margin-top: 1em">
+                            <ion-footer style="margin-bottom: -2em">
+                                <ion-row style="padding: 1em">
+                                    <ion-col size="6">
+                                        <p  *ngIf="this.lugar.valoracion !== null && this.lugar.valoracion !== undefined && this.lugar.valoracion !== 0" style="text-align: center; color: #f2f2f2"><ion-icon name="star-outline" color="warning" style="margin-right: 0.5em"></ion-icon> {{this.lugar.valoracion | number:'1.2-2'}}</p>
+                                        <p *ngIf="this.lugar.valoracion === null || this.lugar.valoracion === undefined || this.lugar.valoracion === 0" style="text-align: center"><ion-icon name="star-outline" color="warning" style="margin-right: 0.5em"></ion-icon><i>Sin valoración</i></p>
+                                    </ion-col>
+                                    <ion-col size="6"><p style="text-align: center; color: #f2f2f2"><ion-icon name="people-outline" color="primary" style="margin-right: 0.5em"></ion-icon>{{this.totalIndice}}</p></ion-col>
+                                </ion-row>
+                            </ion-footer>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+            <div style="margin: 0.5em" *ngIf="this.comentarioUser.idUser === '' ||this.comentarioUser.idUser === null">
+                    <ion-item color="dark">
+                        <ion-label position="floating">Tu comentario</ion-label>
+                        <ion-textarea type="text" readonly="false" [(ngModel)]="comentarioUser.comentario"></ion-textarea>
+                    </ion-item>
+                    <ion-item color="dark">
+                        <rating rate="1" [(ngModel)]="valoracionUser" [disabled]="this.nosePuedeComentar"></rating>
+                        <ion-button [disabled]="this.nosePuedeComentar" (click)="crearComentario()" fill="outline" slot="end" size="big" style="margin-right: -0.4em">
+                            <ion-icon name="add"></ion-icon>
+                        </ion-button>
+                    </ion-item>
+            </div>
+    <div style="margin: 0.5em" *ngIf="this.comentarioUser.idUser !== '' && this.comentarioUser.idUser !== null">
+        <ion-item (click)="mostrarComentario(this.comentarioUser)">
+            <ion-avatar slot="start">
+                <ion-img *ngIf="this.comentarioUser.imgUser !== ''" [src]="this.comentarioUser.imgUser"></ion-img>
+                <ion-img *ngIf="this.comentarioUser.imgUser === ''" src="./assets/img/noimageuser.png"></ion-img>
+            </ion-avatar>
+            <ion-label>
+                <h1>Tu comentario</h1>
+                <p style="margin-bottom: 0.5em">{{this.comentarioUser.comentario}}</p>
+                <p ><ion-icon name="star-outline" style="margin-right: 0.5em" color="warning"></ion-icon><i>{{this.comentarioUser.valoracionUser}}</i></p>
+                <p><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon><i>{{this.pipeDate(this.comentarioUser.fecha)}}</i></p>
+            </ion-label>
+        </ion-item>
+    </div>
+    <ion-list style="margin: 0.5em" *ngIf="totalIndice !== 0">
+        <ion-list-header color="primary">
+            <h2>Comentarios</h2>
+        </ion-list-header>
+        <ion-item *ngFor="let x of ComentariosArrayScroll" (click)="mostrarComentario(x)">
+            <ion-avatar slot="start">
+                <ion-img *ngIf="x.imgUser !== ''" [src]="x.imgUser"></ion-img>
+                <ion-img *ngIf="x.imgUser === ''" src="./assets/img/noimageuser.png"></ion-img>
+            </ion-avatar>
+            <ion-label>
+                <h2 style="margin-bottom: 0.5em">{{x.name}}</h2>
+                <p style="margin-bottom: 0.5em">{{x.comentario}}</p>
+                <p><ion-icon name="star-outline" style="margin-right: 0.5em" color="warning"></ion-icon><i>{{x.valoracionUser}}</i></p>
+                <p><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon><i>{{this.pipeDate(x.fecha)}}</i></p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll threshold="5%"  (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="crescent">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+
+
+

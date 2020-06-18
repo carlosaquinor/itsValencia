@@ -1,0 +1,107 @@
+<app-header titulo="Sugerir evento user"></app-header>
+<ion-item class="background">
+    <h1 style="margin-top: 5em">Información del evento</h1>
+</ion-item>
+<ion-content>
+    <form [formGroup]="formularioEventos" (ngSubmit)="registrarEvento()">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="ion-text-left">
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                            <ion-label position="floating">Nombre del evento</ion-label>
+                            <ion-input formControlName="nombre" type="text"
+                                       [class.is-invalid]="nombreNoValido"
+                                       autofocus></ion-input>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.nombreNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce el nombre del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12" style="margin-top: -0.5em">
+                            <ion-item>
+                                <ion-label  position="floating">Breve descripción del evento</ion-label>
+                                <ion-textarea formControlName="descripcion" type="text"
+                                              [class.is-invalid]="descripcionNoValido"></ion-textarea>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.descripcionNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce una breve descripción del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top: -0.5em">
+                        <ion-col size="12" size-md>
+                            <ion-item>
+                                <ion-label position="floating">Imagen del evento (URL)</ion-label>
+                                <ion-input formControlName="imagen" type="text"
+                                           [class.is-invalid]="imagenNoValido"></ion-input>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.imagenNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce una imagen del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top: -0.5em">
+                        <ion-col size="12" size-md>
+                            <ion-item>
+                                <ion-label position="floating">Dirección</ion-label>
+                                <ion-input formControlName="direccion" type="text"
+                                           [class.is-invalid]="direccionNoValido"
+                                ></ion-input>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.direccionNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce la dirección del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12" style="margin-top: -0.5em">
+                            <ion-item>
+                                <ion-icon name="calendar-outline"></ion-icon>
+                                <ion-datetime formControlName="inicio" type="date"
+                                              [min]="this.fechaActualRAW" max="2030-12-31"
+                                              [class.is-invalid]="inicioNoValido" (ionChange)="menorQueInicio()"
+                                              display-format="MMM DD YYYY, HH:mm" placeholder="Fecha de inicio del evento"></ion-datetime>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.inicioNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce la fecha de inicio del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12" style="margin-top: -0.5em">
+                            <ion-item>
+                                <ion-icon name="calendar-outline"></ion-icon>
+                                <ion-datetime [disabled]="inicioIntroducido()" formControlName="final" type="date"
+                                              [min]="this.formularioEventos.get('inicio').value" max="2030-12-31"
+                                              [class.is-invalid]="inicioNoValido"
+                                              display-format="MMM DD YYYY, HH:mm" placeholder="Fecha del final del evento"></ion-datetime>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.finalNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce la fecha de finalización del evento</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12" size-md style="margin-top: -0.5em">
+                            <ion-item>
+                                <ion-label position="floating">Organizador</ion-label>
+                                <ion-input formControlName="organizador" type="text"
+                                           [class.is-invalid]="organizadorNoValido"
+                                ></ion-input>
+                            </ion-item>
+                            <p><ion-label *ngIf="this.organizadorNoValido" position="stacked" color="danger"><ion-icon name="alert-outline"></ion-icon>Introduce el nombre del organizador</ion-label></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12" size-md style="margin-top: -0.5em">
+                            <ion-item>
+                                <ion-label position="floating">Coste del evento</ion-label>
+                                <ion-input formControlName="coste" type="text"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top: 0.3em">
+                        <ion-col size="8">
+                            <ion-button expand="full" type="submit">REGISTRAR</ion-button>
+                        </ion-col>
+                        <ion-col size="4">
+                            <ion-button expand="full" color="danger" (click)="resetearFormulario()"><ion-icon name="close-outline"></ion-icon></ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

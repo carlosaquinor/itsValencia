@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="primerMenu"></ion-menu-button>
+
+    </ion-buttons>
+    <img src="/assets/img/logo.png" alt="logo" class="brand">
+
+
+    <ion-buttons slot="end">
+      <ion-button *ngIf="titulo == 'Perfil de usuario'"  (click)="cerrarSesion()"> <ion-icon name="log-out" color="light"></ion-icon></ion-button>
+      <ion-back-button *ngIf="
+        titulo == 'Mapa del lugar' ||
+        titulo == 'Mostrar Lugar' ||
+        titulo == 'Mostrar ruta' ||
+        titulo == 'Mostar rutas user' ||
+        titulo == 'Mostrar info ruta' ||
+        titulo == 'Crear Ruta' ||
+        titulo == 'Mostar eventos y lugares user' ||
+        titulo == 'Mostar noticia'" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+<!-- decido que pages quiero que tengan un backbutton -->
+  </ion-toolbar>
+  <img src="/assets/img/logo.png" alt="logo" class="brand-image">
+</ion-header>

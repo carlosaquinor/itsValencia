@@ -1,0 +1,7 @@
+{
+  "name": "itsValencia",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

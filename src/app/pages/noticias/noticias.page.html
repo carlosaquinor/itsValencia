@@ -1,0 +1,78 @@
+<app-header titulo="Noticias"></app-header>
+<ion-content class="background">
+    <ion-grid style="margin-top: 2em">
+        <ion-row>
+            <ion-col size="10">
+                <ion-item>
+                    <ion-label>
+                        <h1>¿Que está pasando?</h1>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-fab>
+                    <ion-fab-button *ngIf="this.imagenUser === ''" routerLink="/login">
+                            <ion-icon name="person" color="light"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button *ngIf="this.imagenUser !== ''" routerLink="/perfil-usuario">
+                        <ion-avatar>
+                            <ion-img [src]="this.imagenUser"></ion-img>
+                        </ion-avatar>
+                    </ion-fab-button>
+                </ion-fab>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+<ion-card *ngFor="let x of listaNoticias" (click)="routerMostrarNoticia(x._id)">
+    <div *ngIf="x.imagen.length > 1">
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let y of x.imagen">
+            <ion-img [src]="y" class="card-img-top"></ion-img>
+        </ion-slide>
+    </ion-slides>
+    <ion-card-content>
+        <ion-grid>
+                    <ion-row>
+                        <ion-card-title><h1>{{x.titulo}}</h1></ion-card-title>
+                        <ion-card-subtitle style="padding-top: -0.5em"><h2><i>{{x.subtitulo}}</i></h2></ion-card-subtitle>
+                    </ion-row>
+                    <ion-row style="margin-top: 1em">
+                        <p>{{x.contenido}}</p>
+                    </ion-row>
+                    <ion-row style="margin-top: 1em; color: #f2f2f2">
+                        <ion-col size="12">
+                            <ion-icon color="light" name="globe-outline" style="margin-right: 0.5em"></ion-icon>{{x.autor}} • {{this.pipeDate(x.fecha)}}
+                        </ion-col>
+                    </ion-row>
+        </ion-grid>
+    </ion-card-content>
+    </div>
+    <div *ngIf="x.imagen.length === 1">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="7">
+                    <ion-row>
+                        <ion-card-title><h2>{{x.titulo}}</h2></ion-card-title>
+                    </ion-row>
+                    <ion-row style="margin-top: -1em">
+                        <p>{{x.contenido}}</p>
+                    </ion-row>
+                </ion-col>
+                <ion-col size="5">
+                    <ion-img [src]="x.imagen[0]" class="card-img-top2"></ion-img>
+                </ion-col>
+            </ion-row>
+            <ion-row style="color: #f2f2f2">
+                <ion-col size="12">
+                    <ion-icon color="light" name="globe-outline" style="margin-right: 0.5em"></ion-icon>{{x.autor}} • {{this.pipeDate(x.fecha)}}
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-card>
+    <ion-infinite-scroll threshold="5%"  (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="crescent">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

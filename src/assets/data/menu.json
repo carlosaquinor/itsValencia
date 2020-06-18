@@ -1,0 +1,37 @@
+[
+  {
+    "nombre": "Noticias",
+    "icono": "newspaper-outline",
+    "redirectTo": "/noticias"
+  },
+  {
+    "nombre": "Eventos",
+    "icono": "calendar-outline",
+    "redirectTo": "/eventos"
+  },
+  {
+    "nombre": "Sitios turísticos",
+    "icono": "location-outline",
+    "redirectTo": "/sitios-turisticos"
+  },
+  {
+    "nombre": "Rutas",
+    "icono": "navigate-outline",
+    "redirectTo": "/rutas"
+  },
+  {
+    "nombre": "Playas",
+    "icono": "sunny-outline",
+    "redirectTo": "/playas"
+  },
+  {
+    "nombre": "Hoteles",
+    "icono": "bed-outline",
+    "redirectTo": "/hoteles"
+  },
+  {
+    "nombre": "Información",
+    "icono": "help-outline",
+    "redirectTo": "/informacion"
+  }
+]

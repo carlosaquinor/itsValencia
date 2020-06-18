@@ -1,0 +1,25 @@
+.foto-perfil{
+  margin: auto;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  width: 3em;
+  height: 3em;
+}
+.ion-item-border {
+  border-radius: 20em !important;
+  width: auto;
+}
+.bg-class{
+  --background: linear-gradient(197deg, rgba(248, 148, 6, 1) 0%, rgba(232, 126, 4, 1) 50%) !important;
+}
+.backgroundComent {
+  --background: #fff url('../../../assets/img/fondologin.png') no-repeat center center / cover;
+}
+.card-img-top {
+  width: 100%;
+  height: 16em;
+  object-fit: cover;
+}
+

@@ -1,0 +1,74 @@
+<app-header titulo="Mostar eventos y lugares user"></app-header>
+<ion-content  class="background">
+    <ion-slides #slides pager="false" [options]="sliderOptions" (ionSlideDidChange)="slideCambiado(slides)"
+    (ionSlidesDidLoad)="slideCambiado(slides)">
+        <ion-slide>
+            <ion-grid>
+                <ion-row *ngFor="let x of listaLugares">
+                    <ion-col size="12">
+                    <ion-item *ngIf="x.publicado === false" color="dark" (click)="alertPendienteRevision(x.nombre)">
+                        <ion-avatar slot="start">
+                            <ion-img [src]="x.imagen[0]"></ion-img>
+                        </ion-avatar>
+                        <ion-label style="color: #f2f2f2">
+                            <h2>{{x.nombre}}</h2>
+                            <p style="margin-top: 0.3em"><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon>{{this.pipeDate(x.fecha)}}<i> (Día de la solicitud)</i></p>
+                            <p>Estado : En revisión</p>
+                        </ion-label>
+                    </ion-item>
+                        <ion-item *ngIf="x.publicado === true" color="tertiary" (click)="mostrarLugar(x._id)">
+                            <ion-avatar slot="start">
+                                <ion-img [src]="x.imagen[0]"></ion-img>
+                            </ion-avatar>
+                            <ion-label style="color: #0d0d0d">
+                                <h2>{{x.nombre}}</h2>
+                                <p style="margin-top: 0.3em"><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon>{{this.pipeDate(x.fecha)}}<i> (Día de la solicitud)</i></p>
+                                <p>Estado : Publicado</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+        <ion-slide>
+            <ion-grid>
+                <ion-row *ngFor="let x of listaEventos">
+                    <ion-col size="12">
+                        <ion-item *ngIf="x.publicado === false" color="dark" (click)="alertPendienteRevision(x.nombre)">
+                            <ion-avatar slot="start">
+                                <ion-img [src]="x.imagen"></ion-img>
+                            </ion-avatar>
+                            <ion-label style="color: #f2f2f2">
+                                <h2>{{x.nombre}}</h2>
+                                <p style="margin-top: 0.3em"><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon>{{this.pipeDate(x.inicio)}}<i> (Inicio del evento)</i></p>
+                                <p>Estado : En revisión</p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="x.publicado === true" color="tertiary" routerLink="/eventos">
+                            <ion-avatar slot="start">
+                                <ion-img [src]="x.imagen"></ion-img>
+                            </ion-avatar>
+                            <ion-label style="color: #0d0d0d">
+                                <h2>{{x.nombre}}</h2>
+                                <p style="margin-top: 0.3em"><ion-icon name="calendar-outline" style="margin-right: 0.5em"></ion-icon>{{this.pipeDate(x.inicio)}}<i> (Inicio del evento)</i></p>
+                                <p>Estado : Publicado</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<ion-footer>
+    <ion-toolbar color="primary">
+        <ion-segment mod="md" [(ngModel)]="segmento" (ionChange)="segmentoCambiao($event)">
+            <ion-segment-button value="0">
+                <p>Lugares <ion-icon name="location-outline"></ion-icon></p>
+            </ion-segment-button>
+            <ion-segment-button value="1">
+                <p>Eventos <ion-icon name="people-outline"> </ion-icon></p>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>
